@@ -60,7 +60,7 @@ namespace Tinkoff_NetApi.Controllers
             request.Headers.Add("Accept", "application/json");
             request.Content = content;
             HttpResponseMessage response = await client.SendAsync(request);
-            ViewBag.Mir = response.ToString();
+            ViewBag.Mir = System.Text.Encoding.Default.GetString(await response.Content.ReadAsByteArrayAsync());
             return View("Index");
         }
 
