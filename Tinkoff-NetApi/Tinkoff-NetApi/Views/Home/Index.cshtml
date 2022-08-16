@@ -5,7 +5,23 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <form method="post" asp-action="InitPay">
-        <input type="submit" value="send" />
+        <input type="submit" value="Тикет за 500" />
     </form>
-    <p>@ViewBag.Mir</p>
+    <div class="container">
+        <p>Ссылка на платёжку - <a>@ViewBag.Mir</a></p>
+    </div>
 </div>
+
+<script>
+    window.addEventListener('load', function() {
+        let key = @ViewBag.Key;
+        if (key == 0) {
+
+            console.log('XXX')
+        }
+        else {
+           window.open('@ViewBag.Mir','_blank');
+            console.log('YYY')
+        }
+})
+</script>

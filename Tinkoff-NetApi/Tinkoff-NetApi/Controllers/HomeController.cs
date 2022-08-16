@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Net.Http.Headers;
 using Tinkoff_NetApi.Models;
-using System.Net.Http.Headers;  
 
 namespace Tinkoff_NetApi.Controllers
 {
@@ -17,6 +17,7 @@ namespace Tinkoff_NetApi.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Key = 0;
             return View();
         }
 
@@ -26,7 +27,7 @@ namespace Tinkoff_NetApi.Controllers
             var tinkoffInfo = new TinkoffInfo
             {
                 TerminalKey = "TinkoffBankTest",
-                Amount = 5000,
+                Amount = 100,
                 OrderId = "2105024",
                 Description = "test ticket",
                 Data = new Data
@@ -40,14 +41,14 @@ namespace Tinkoff_NetApi.Controllers
                     Phone = "+71234567890",
                     EmailCompany = "b@test.com",
                     Taxation = "osn",
-                    Items = new Item []
+                    Items = new Item[]
                     {
                         new Item
                         {
                             Name = "тикет 50",
-                            Price = 5000,
+                            Price = 100,
                             Quantity = 1.00,
-                            Amount = 5000,
+                            Amount = 100,
                             Tax = "vat10"
                         }
                     }
@@ -65,8 +66,13 @@ namespace Tinkoff_NetApi.Controllers
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             request.Content = content;
             HttpResponseMessage response = await client.SendAsync(request);
-            ViewBag.Mir = System.Text.Encoding.Default.GetString(await response.Content.ReadAsByteArrayAsync());
+            string jsonResponse = System.Text.Encoding.Default.GetString(await response.Content.ReadAsByteArrayAsync());
+            TinkoffResponse tinkoffResponse = JsonConvert.DeserializeObject<TinkoffResponse>(jsonResponse);
+            ViewBag.Mir = tinkoffResponse.PaymentURL;
+            ViewBag.Key = 1;
+
             return View("Index");
+
         }
 
 
@@ -128,6 +134,25 @@ namespace Tinkoff_NetApi.Controllers
             public double Amount { get; set; }
 
             public string Tax { get; set; }
+        }
+
+        public class TinkoffResponse
+        {
+            public string Success { get; set; }
+
+            public string ErrorCode { get; set; }
+
+            public string TerminalKey { get; set; }
+
+            public string Status { get; set; }
+
+            public string PaymentId { get; set; }
+
+            public string OrderId { get; set; }
+
+            public double Amount { get; set; }
+
+            public string PaymentURL { get; set; }
         }
     }
 }
