@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tinkoff-NetApi", "Tinkoff-NetApi\Tinkoff-NetApi.csproj", "{10746F01-94C7-4566-9A16-E353F4C5F0E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10746F01-94C7-4566-9A16-E353F4C5F0E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10746F01-94C7-4566-9A16-E353F4C5F0E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10746F01-94C7-4566-9A16-E353F4C5F0E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10746F01-94C7-4566-9A16-E353F4C5F0E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45AB3729-3CFA-4704-BBC5-F90A804D9623}
+	EndGlobalSection
+EndGlobal

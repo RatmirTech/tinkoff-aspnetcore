@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <form method="post" asp-action="InitPay">
+        <input type="submit" value="send" />
+    </form>
+    <p>@ViewBag.Mir</p>
+</div>
