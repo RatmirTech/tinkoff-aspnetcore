@@ -56,7 +56,7 @@ namespace Tinkoff_NetApi.Controllers
             HttpRequestMessage request = new HttpRequestMessage();
 
             request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri("https://business.tinkoff.ru/openapi/sandbox/secured/api/v1/payment/ruble-transfer/pay");
+            request.RequestUri = new Uri("https://securepay.tinkoff.ru/v2/Init");
             request.Headers.Add("Accept", "application/json");
             request.Content = content;
             HttpResponseMessage response = await client.SendAsync(request);
