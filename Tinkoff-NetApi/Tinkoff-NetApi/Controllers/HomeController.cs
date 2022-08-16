@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Tinkoff_NetApi.Models;
+using System.Net.Http.Headers;  
 
 namespace Tinkoff_NetApi.Controllers
 {
@@ -25,7 +26,7 @@ namespace Tinkoff_NetApi.Controllers
             var tinkoffInfo = new TinkoffInfo
             {
                 TerminalKey = "TinkoffBankTest",
-                Amount = 500,
+                Amount = 5000,
                 OrderId = "2105024",
                 Description = "test ticket",
                 Data = new Data
@@ -39,13 +40,16 @@ namespace Tinkoff_NetApi.Controllers
                     Phone = "+71234567890",
                     EmailCompany = "b@test.com",
                     Taxation = "osn",
-                    Items = new Items
+                    Items = new Item []
                     {
-                        Name = "тикет 50",
-                        Price = 5000,
-                        Quantity = 1.00,
-                        Amount = 5000,
-                        Tax = "vat10"
+                        new Item
+                        {
+                            Name = "тикет 50",
+                            Price = 5000,
+                            Quantity = 1.00,
+                            Amount = 5000,
+                            Tax = "vat10"
+                        }
                     }
                 }
             };
@@ -57,7 +61,8 @@ namespace Tinkoff_NetApi.Controllers
 
             request.Method = HttpMethod.Post;
             request.RequestUri = new Uri("https://securepay.tinkoff.ru/v2/Init");
-            request.Headers.Add("Accept", "application/json");
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             request.Content = content;
             HttpResponseMessage response = await client.SendAsync(request);
             ViewBag.Mir = System.Text.Encoding.Default.GetString(await response.Content.ReadAsByteArrayAsync());
@@ -109,10 +114,10 @@ namespace Tinkoff_NetApi.Controllers
 
             public string Taxation { get; set; }
 
-            public Items Items { get; set; }
+            public IList<Item> Items { get; set; }
         }
 
-        public class Items
+        public class Item
         {
             public string Name { get; set; }
 
